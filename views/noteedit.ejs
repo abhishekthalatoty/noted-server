@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Note-creation</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" href="style.css">-->
+    <style>
+        .text-title {
+            align-self: center;
+            padding: 1%;
+            text-align: center;
+        }
+
+        .text-area {
+            padding: 1%;
+            text-align: center;
+        }
+
+        .btnSave {
+            text-align: center;
+            margin: auto;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="/notes/<%= note.id %>?_method=PUT" method="POST">
+        <div class="text-title">
+            <textarea row="1" cols="175" name="note[title]"> <%=note.title %> </textarea>
+        </div>
+        <div class="text-area">
+            <textarea rows="30" cols="175" title="Enter text here" name="note[body]">
+                <%= note.body %>
+            </textarea>
+        </div>
+        <button type="submit" class="btnSave">Save</button>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+            <![endif]-->
+
+    </form>
+
+</body>
+
+</html>

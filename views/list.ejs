@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Notes-display</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<link rel="stylesheet" href="style.css">-->
+    <!-- <style>
+        .display-list {
+            text-decoration: none;
+            display: block;
+            margin: auto;
+        }
+
+        .display-list ul {
+            list-style-type: none;
+        }
+
+        .display-list li {
+            display: flex;
+            padding: 2%;
+            margin-right: 20px;
+        }
+
+        .display-list li p {
+            padding: 1%;
+        }
+
+        .display-list li button {
+            padding: 1%;
+            width: 50px;
+            height: 30px;
+            text-align: center;
+        }
+    </style> -->
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <div class="display-list">
+
+        <ul>
+            <h2>these are your notes:</h2>
+
+            <%  for(var i=0; i<notes.length ; i++){ %>
+            <li>
+                <p><%= notes[i].title %></p>
+                <form action="/notes/<%= notes[i].id%>/edit" method="GET">
+                    <button>Edit</button>
+
+                </form>
+                <form action="/notes/<%=notes[i].id %>" method="GET">
+
+                    <button>Open</button>
+
+                </form>
+                <form action="/notes/<%=notes[i].id %>?_method=DELETE" method="POST">
+                    <button>Delete</button>
+                </form>
+            </li>
+            <hr>
+
+
+            <% } %>
+
+
+            <form action="/notes/new" method="GET">
+                <button>Add a New Note</button>
+            </form>
+
+        </ul>
+    </div>
+
+</body>
+
+</html>
