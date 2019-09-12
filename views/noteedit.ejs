@@ -36,10 +36,10 @@
 <body>
     <form action="/notes/<%= note.id %>?_method=PUT" method="POST">
         <div class="text-title">
-            <textarea row="1" cols="175" name="note[title]"> <%=note.title %> </textarea>
+            <textarea row="1" cols="175" name="editnote[title]"> <%=note.title %> </textarea>
         </div>
         <div class="text-area">
-            <textarea rows="30" cols="175" title="Enter text here" name="note[body]">
+            <textarea rows="30" cols="175" title="Enter text here" name="editnote[body]">
                 <%= note.body %>
             </textarea>
         </div>

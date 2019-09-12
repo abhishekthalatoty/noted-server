@@ -33,10 +33,12 @@ var notes = [
 
 ];
 
-
+// home page redirect
 app.get('/', function (req, res) {
     res.redirect("/notes");
 });
+
+
 
 // for creating a new note, post req.
 app.post('/notes', function (req, res) {
@@ -69,27 +71,29 @@ app.get('/notes/new', function (req, res) {
 });
 
 
-// not working.
-app.get('notes/:id/edit', function (req, res) {
+// to open edit form
+app.get('/notes/:id/edit', function (req, res) {
     var oldNote = notes[getNoteId(notes, req.params.id)];
+    res.render('noteedit.ejs', { note: oldNote });
+});
 
+// to set the editing and change it to database.
+app.put('/notes/:id', function (req, res) {
     var note = {
-        id: oldNote.id,
-        title: req.body.note.title,
-        body: req.body.note.body,
+        id: getNoteId(notes, req.params.id),
+        title: req.body.editnote.title,
+        body: req.body.editnote.body
     };
 
-    res.render('/noteedit.ejs', { note: oldNote });
+    notes[getNoteId(notes, req.params.id)] = note;
 
-
+    res.redirect('/');
 
 });
 
 
-
 // open, show each note
 app.get('/notes/:id', function (req, res) {
-
     var note = notes[getNoteId(notes, req.params.id)];
     res.render('note.ejs', { note: note });
 })
