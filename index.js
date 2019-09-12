@@ -1,66 +1,71 @@
-var express = require("express");
+const express = require("express");
+const mongoose=require("mongoose");
+const Note =require("./notes");
+const db = require("./db");
 var bodyParser = require("body-parser"),
     methodOverride = require("method-override");
-
-var portNumber = 3060;
+var portNumber =  5060;
 var app = express();
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 
 
-function getNoteId(list, ids) {
-    var id = parseInt(ids, 10);
-    for (var i = 0; i < list.length; i++) {
-        if (list[i].id === id) {
-            return (i);
-        }
-    }
-
-};
+const note=new Note({
+    _id:new mongoose.Types.ObjectId(),
+    title:"note title",
+    body:"note body"
+});
 
 
-
-var notes = [
-    {
-        id: 1,
-        title: "this is your note title",
-        body: "This is Note Body",
-    },
-
-
-
-
-];
-
-// home page redirect
-app.get('/', function (req, res) {
+app.get('/',  (req, res)=> {
     res.redirect("/notes");
 });
 
 
-
-// for creating a new note, post req.
-app.post('/notes', function (req, res) {
-
-    var note = {
-        id: notes.length + 1,
-        title: req.body.note.title,
-        body: req.body.note.body,
-    };
-
-    notes.push(note);
-
-    res.redirect('/notes');
-
-
-
+// get all notes
+app.get('/', (req, res) => {
+   db.getDB().collection(collection)
+        .find({}).toArray((err, documents) => {
+            if (err)
+                console.log(err);
+            else {
+                res.json(documents);
+            }
+        });
+   
 });
+//post note
+app.post('/notes', (req, res) => {
+    const newnote = new Note({
+        _id:new mongoose.Types.ObjectId(),
+        title:req.body.note.title,
+        body:req.body.note.body
+    });
+    newnote.save().then(result =>{
+         notes.push(newnote),
+         console.log(newnote),
+        res.redirect('/notes')})
+       .catch(err =>console.log(err)); 
+
+} )   
+        
+  
+//middle ware
+app.use((err, req, res, next) => {
+    res.status(err.status).json({
+        error: {
+            message: err.message
+        }
+    });
+})
+
 
 
 //basic home page
-app.get('/notes', function (req, res) {
-    res.render('list.ejs', { notes: notes });
+app.get('/notes',  (req, res) =>{
+    res.render('list.ejs', {Note: documents});
 })
 
 
@@ -71,51 +76,54 @@ app.get('/notes/new', function (req, res) {
 });
 
 
-// to open edit form
-app.get('/notes/:id/edit', function (req, res) {
-    var oldNote = notes[getNoteId(notes, req.params.id)];
-    res.render('noteedit.ejs', { note: oldNote });
-});
+//put to edit
 
-// to set the editing and change it to database.
-app.put('/notes/:id', function (req, res) {
-    var note = {
-        id: getNoteId(notes, req.params.id),
-        title: req.body.editnote.title,
-        body: req.body.editnote.body
-    };
+app.put('/notes/:id/edit', (req, res) => {
 
-    notes[getNoteId(notes, req.params.id)] = note;
-
-    res.redirect('/');
-
+    db.getDB().collection(collection).findOneAndUpdate({ _id: db.getPrimaryKey(req.params.id) }, { $set: { todo: req.body.req.params.id } }, { returnOriginal: false }, (err, result) => {
+        if (err)
+            console.log(err);
+        else {
+            res.render('noteedit.ejs');
+        }
+    });
 });
 
 
 // open, show each note
-app.get('/notes/:id', function (req, res) {
-    var note = notes[getNoteId(notes, req.params.id)];
-    res.render('note.ejs', { note: note });
-})
+app.get('/notes/:id', (req, res) => {
+    db.getDB().collection(collection)
+        .findOne({ _id: db.getPrimaryKey(req.params.id) }), (err, result) => {
+            if (err)
+            res.render('note.ejs', { Note: documents });
+            else
+            res.render('noteedit.ejs', { Node: result});
+               
+        };
+    });
 
+    // delete the note
+    app.delete('/notes/:id', (req, res) => {
 
+        db.getDB().collection(collection).findOneAndDelete({ _id: db.getPrimaryKey(req.params.id) }, (err, result) => {
+            if (err)
+                console.log(err);
+            else
+            res.render('list.ejs', { Note: documents });   
+        });
+    });
+//database connection
+    db.connect((err) => {
 
+        if (err) {
+            console.log('unable to connect to database');
+            process.exit(1);
+        }
 
-// delete the note
-app.delete('/notes/:id', function (req, res) {
-    notes.splice(getNoteId(notes, req.params.id), 1);  // set it with find method. giving error. error solved, not fixed
-    res.redirect('/notes');
+        else {
+            app.listen(portNumber, () => {
+                console.log('connected to database');
+            });
+        }
+    });
 
-});
-
-
-
-
-
-
-
-
-// server listener
-app.listen(portNumber, function () {
-    console.log("the server is up and listening.");
-});
