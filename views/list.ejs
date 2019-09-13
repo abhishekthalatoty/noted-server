@@ -55,16 +55,16 @@
             <%  for(var i=0; i<notes.length ; i++){ %>
             <li>
                 <p><%= notes[i].title %></p>
-                <form action="/notes/<%= notes[i].id%>/edit" method="GET">
+                <form action="/notes/<%= notes[i]._id%>/edit" method="GET">
                     <button>Edit</button>
 
                 </form>
-                <form action="/notes/<%=notes[i].id %>" method="GET">
+                <form action="/notes/<%=notes[i]._id %>" method="GET">
 
                     <button>Open</button>
 
                 </form>
-                <form action="/notes/<%=notes[i].id %>?_method=DELETE" method="POST">
+                <form action="/notes/<%=notes[i]._id %>?_method=DELETE" method="POST">
                     <button>Delete</button>
                 </form>
             </li>
