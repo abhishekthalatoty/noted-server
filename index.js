@@ -1,37 +1,24 @@
 var express = require("express");
 var bodyParser = require("body-parser"),
-    methodOverride = require("method-override");
+    methodOverride = require("method-override"),
+    mongoose = require("mongoose");
 
 var portNumber = 3060;
 var app = express();
+
+
+mongoose.connect("mongodb://localhost/noted_sample");
+mongoose.set('useFindAndModify', false);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
 
+var Note = mongoose.model("Note", new mongoose.Schema({
+    title: String,
+    body: String
 
-function getNoteId(list, ids) {
-    var id = parseInt(ids, 10);
-    for (var i = 0; i < list.length; i++) {
-        if (list[i].id === id) {
-            return (i);
-        }
-    }
+}));
 
-};
-
-
-
-var notes = [
-    {
-        id: 1,
-        title: "this is your note title",
-        body: "This is Note Body",
-    },
-
-
-
-
-];
 
 // home page redirect
 app.get('/', function (req, res) {
@@ -44,24 +31,32 @@ app.get('/', function (req, res) {
 app.post('/notes', function (req, res) {
 
     var note = {
-        id: notes.length + 1,
         title: req.body.note.title,
         body: req.body.note.body,
     };
 
-    notes.push(note);
-
-    res.redirect('/notes');
-
-
-
+    Note.create(note, function (error, note) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            res.redirect('/notes');
+        }
+    });
 });
 
 
 //basic home page
 app.get('/notes', function (req, res) {
-    res.render('list.ejs', { notes: notes });
-})
+    Note.find({}, function (error, allNotes) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            res.render('list.ejs', { notes: allNotes });
+        }
+    });
+});
 
 
 
@@ -73,38 +68,65 @@ app.get('/notes/new', function (req, res) {
 
 // to open edit form
 app.get('/notes/:id/edit', function (req, res) {
-    var oldNote = notes[getNoteId(notes, req.params.id)];
-    res.render('noteedit.ejs', { note: oldNote });
+    Note.findById(req.params.id, function (error, oldNote) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            res.render('noteedit.ejs', { note: oldNote });
+        }
+    });
+
 });
+
 
 // to set the editing and change it to database.
 app.put('/notes/:id', function (req, res) {
     var note = {
-        id: getNoteId(notes, req.params.id),
         title: req.body.editnote.title,
         body: req.body.editnote.body
     };
 
-    notes[getNoteId(notes, req.params.id)] = note;
+    Note.findByIdAndUpdate(req.params.id, note, function (error, updatedNote) {
+        if (error) { console.log(error); }
+        else {
+            res.redirect('/');
+        }
+    });
 
-    res.redirect('/');
 
 });
 
 
 // open, show each note
 app.get('/notes/:id', function (req, res) {
-    var note = notes[getNoteId(notes, req.params.id)];
-    res.render('note.ejs', { note: note });
-})
+    Note.findById(req.params.id, function (error, foundNote) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            res.render('note.ejs', { note: foundNote });
+
+        }
+    });
+
+});
 
 
 
 
 // delete the note
 app.delete('/notes/:id', function (req, res) {
-    notes.splice(getNoteId(notes, req.params.id), 1);  // set it with find method. giving error. error solved, not fixed
-    res.redirect('/notes');
+
+    Note.findByIdAndDelete(req.params.id, function (error, note) {
+        if (error) {
+            console.log(error);
+        }
+        else {
+            res.redirect('/notes');
+
+        }
+    });
 
 });
 
