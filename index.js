@@ -1,23 +1,39 @@
 var express = require("express");
 var bodyParser = require("body-parser"),
     methodOverride = require("method-override"),
-    mongoose = require("mongoose");
+    mongoose = require("mongoose"),
+    passport = require("passport"),
+    passportLocal = require("passport-local");
+var Note = require("./models/note.js"),
+    User = require("./models/user.js");
+
+
+
 
 var portNumber = 3060;
+
+
 var app = express();
 
-
+app.use(express.static("public/styles"));
 mongoose.connect("mongodb://localhost/noted_sample");
 mongoose.set('useFindAndModify', false);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-
-
-var Note = mongoose.model("Note", new mongoose.Schema({
-    title: String,
-    body: String
-
+app.set("view engine", 'ejs');
+app.use(require('express-session')({
+    secret: "salt",
+    resave: false,
+    saveUninitialized: false
 }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new passportLocal(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 
 
 // home page redirect
@@ -27,12 +43,71 @@ app.get('/', function (req, res) {
 
 
 
+
+
+//log in form
+app.get("/login", function (req, res) {
+    res.render('login');
+});
+
+
+
+// sign up form
+app.get("/signup", function (req, res) {
+    res.render("signup");
+});
+
+
+
+// log in logic
+app.post("/login", passport.authenticate("local", {
+    successRedirect: '/notes',
+    failureRedirect: "/login",
+    failureFlash: false,
+}), function (req, res) {
+}
+);
+
+
+
+
+// log out the current user
+app.get('/logout', function (req, res) {
+    req.logOut();
+    res.redirect('/login');
+})
+
+
+
+//sign up logic
+app.post("/signup", function (req, res) {
+    User.register(new User({ username: req.body.username }), req.body.password, function (err, user) {
+        if (err) {
+            console.log(err);
+        } else {
+            passport.authenticate('local')(req, res, function () {
+                // logged in, implement something now
+                console.log(user);
+                res.redirect('/notes')
+            });
+        }
+    });
+});
+
+
+
+
+
 // for creating a new note, post req.
-app.post('/notes', function (req, res) {
+app.post('/notes', isLoggedIn, function (req, res) {
 
     var note = {
         title: req.body.note.title,
         body: req.body.note.body,
+        author: {
+            id: req.user._id,
+            username: req.user.username,
+        }
     };
 
     Note.create(note, function (error, note) {
@@ -40,6 +115,8 @@ app.post('/notes', function (req, res) {
             console.log(error);
         }
         else {
+            req.user.notes.push(note);
+            req.user.save();
             res.redirect('/notes');
         }
     });
@@ -47,15 +124,14 @@ app.post('/notes', function (req, res) {
 
 
 //basic home page
-app.get('/notes', function (req, res) {
-    Note.find({}, function (error, allNotes) {
-        if (error) {
-            console.log(error);
+app.get('/notes', isLoggedIn, function (req, res) {
+    User.findById(req.user.id).populate("notes").exec(function (err, user) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('list.ejs', { notes: user.notes })
         }
-        else {
-            res.render('list.ejs', { notes: allNotes });
-        }
-    });
+    })
 });
 
 
@@ -84,7 +160,7 @@ app.get('/notes/:id/edit', function (req, res) {
 app.put('/notes/:id', function (req, res) {
     var note = {
         title: req.body.editnote.title,
-        body: req.body.editnote.body
+        body: req.body.editnote.body,
     };
 
     Note.findByIdAndUpdate(req.params.id, note, function (error, updatedNote) {
@@ -93,8 +169,6 @@ app.put('/notes/:id', function (req, res) {
             res.redirect('/');
         }
     });
-
-
 });
 
 
@@ -117,7 +191,6 @@ app.get('/notes/:id', function (req, res) {
 
 // delete the note
 app.delete('/notes/:id', function (req, res) {
-
     Note.findByIdAndDelete(req.params.id, function (error, note) {
         if (error) {
             console.log(error);
@@ -134,6 +207,15 @@ app.delete('/notes/:id', function (req, res) {
 
 
 
+// is loggedin middlewear
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    } else {
+        res.redirect('/login');
+    }
+
+}
 
 
 

@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+.title {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 1000;
+    color: rgb(51, 116, 238);
+}
+
+html {
+    font-family: sans-serif;
+}
+
+body {
+    width: 100%;
+    background-image: linear-gradient(to top, #fdcbf1 0%, #fdcbf1 1%, #e6dee9 100%);
+    /*  background-image: url(images/abstract.jpg);*/
+    background-repeat: no-repeat;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: 100;
+    color: black;
+}
+
+h3 {
+    font-size: 24px;
+    color: #2b2b2b;
+}
+
+.btnStarted {
+    display: block;
+    text-decoration: none;
+    border-radius: 4px;
+    height: 50px;
+    width: 120px;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 30px;
+    background-color: rgb(51, 116, 238);
+}
+
+.btnLog {
+    display: block;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    border-radius: 4px;
+    height: 50px;
+    width: 100px;
+    font-size: 20px;
+    line-height: 50px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.a {
+    display: inline-block;
+}
+
+/*************nav********************/
+nav {
+    line-height: 50px;
+    text-align: right;
+}
+
+nav a {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 70%;
+}
+
+nav a:first-child {
+    float: left;
+}
+
+nav a img {
+    vertical-align: center;
+}
+
+/***********header***************/
+header {
+    height: 500px;
+    min-height: 1000px;
+    padding: 1%;
+    background-image: url(images/notes.svg);
+    background-position: right top;
+    background-repeat: no-repeat;
+    background-size: 50%;
+}
+
+/**********features***************/
+.features {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 0.2%;
+    margin-top: 0;
+}
+
+.features-class {
+    margin: 0;
+}
+
+.feature-h {
+    text-align: center;
+    font-size: 30px;
+    padding: 1%;
+}
+
+.feature a {
+    text-decoration: none;
+    color: black;
+    font-family: sans-serif;
+    font-weight: 300;
+    text-align: center;
+}
+
+.feature {
+    margin: 0 30px;
+
+}
+
+/**************footer*****************/
+footer {
+    background-color: rgb(51, 116, 238);
+}
+
+footer a {
+    text-decoration: none;
+    font-size: 24px;
+    font-family: sans-serif;
+    padding-right: 10%;
+    margin-left: 10%;
+    color: white;
+}
+
+.about {
+    margin-bottom: 5%;
+    font-size: 48px;
+    text-align: center;
+}
+
+/*************************typing animation *****************/
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+
+.animate body {
+    padding: 40px;
+    background-color: #121212;
+}
+
+.animate p {
+    border-right: solid 3px black;
+    white-space: nowrap;
+    overflow: hidden;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 55px;
+    color: black;
+}
+
+/* Animation */
+.animate p {
+    animation: animated-text 4s steps(29, end) 1s 1 normal both,
+        animated-cursor 600ms steps(29, end) infinite;
+}
+
+/* text animation */
+
+@keyframes animated-text {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 800px;
+    }
+}
+
+/* cursor animations */
+
+@keyframes animated-cursor {
+    from {
+        border-right-color: black;
+    }
+
+    to {
+        border-right-color: transparent;
+    }
+}

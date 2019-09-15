@@ -1,0 +1,129 @@
+.display-list {
+    text-decoration: none;
+    display: block;
+    margin: auto;
+}
+
+.display-list ul {
+    list-style-type: none;
+}
+
+.display-list li {
+    padding-bottom: 1%;
+}
+
+.note {
+    display: flex;
+    margin-right: 20px;
+    background-color: white;
+    border: 1px black;
+    border-style: solid;
+    border-left: 6px solid black;
+    /*border-radius: 10px;*/
+    padding: 1%;
+    height: 90px;
+    text-align: center;
+    align-content: center;
+}
+
+.note-title h1 {
+    margin: 0%;
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: black;
+    /*padding-right: 2%;*/
+}
+
+.note-title h2 {
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    padding-right: 0px;
+    display: flex;
+    color: black;
+}
+
+.toright h2 {
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    padding-right: 0px;
+    color: black;
+}
+
+.toright button {
+    float: right;
+    display: inline-block;
+    border: 0.1em solid black;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.12em;
+    height: 30px;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    color: black;
+    text-align: center;
+    transition: all 0.2s;
+    background-color: darkgray;
+    font-size: 20px;
+}
+
+.toright {
+    padding-right: 30px;
+    position: absolute;
+    right: 0;
+    /*padding-left: 72%;*/
+    display: flex;
+    float: right;
+    text-align: right;
+    color: black;
+}
+
+header {
+    margin: auto;
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
+    height: 100px;
+}
+
+.sort {
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    float: right;
+    padding: 0%;
+}
+
+body {
+    background-image: linear-gradient(to top, #fdcbf1 0%, #fdcbf1 1%, #e6dee9 100%);
+}
+
+.search-create {
+    padding: 2%;
+}
+
+.search-create button {
+    width: 25px;
+    height: 25px;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.search-create button:hover {
+    background: #ccc;
+}
+
+.search-create input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+}
