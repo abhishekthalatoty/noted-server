@@ -1,0 +1,80 @@
+.text-title {
+    align-self: center;
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 1%;
+    padding-bottom: 0%;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.text-area {
+    padding-bottom: 1%;
+    padding-left: 1%;
+    padding-right: 1%;
+    text-align: center;
+}
+
+
+.color-black {
+    height: 50px;
+    width: 50px;
+    color: black;
+}
+
+.text-formatting {
+    text-align: left;
+    padding-left: 1.2%;
+}
+
+.text-formatting button {
+    width: 30px;
+    padding: 0%;
+}
+
+.text-formatting select {
+    padding: 0%;
+}
+
+.form-control {
+    padding: 1%;
+}
+
+body {
+    background-image: linear-gradient(to top, #fdcbf1 0%, #fdcbf1 1%, #e6dee9 100%);
+}
+
+.box {
+    padding: 1%;
+}
+
+.box-body {
+    margin: auto;
+    display: block;
+    border: 2px solid grey;
+    border-style: solid;
+    width: 80%;
+    height: 60%;
+    padding: 0.5%;
+    text-align: center;
+}
+
+.bar {
+    padding: 1%;
+}
+
+.leftbtn {
+    float: left;
+    text-align: left;
+    background-color: white;
+}
+
+.rightbtn {
+    float: right;
+    text-align: right;
+    background-color: white;
+}
+
+.navbar navbar-default {
+    height: 10px;
+}
