@@ -1,29 +1,56 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
 
 <head>
-  <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>YourNote</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/note-open-css.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+    <!--Default Navbar Start Here-->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"
+                    style="color:whitesmoke; font-family: 'Courier New', Courier, monospace; font-weight: 600;">NOTED.</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/notes" style="color:whitesmoke;">Home</a></li>
+                <li><a href="/logout" style="padding-left: 1900%; color:whitesmoke;">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!--<nav> tag end-->
+    <div class="body-class">
+        <div class="btn-edit">
+            <a href="/notes/<%= note._id%>/edit">
+                <button type="button" class="btn btn-primary">Edit</button>
+            </a>
+        </div>
+        <div class="panel panel-default">
+            <div class="text-title">
+                <p> <%= note.title %> </p>
+            </div>
+            <div class="text-area">
+                <p> <%= note.body %></p>
+            </div>
+        </div>
 
-  <div>
-
-    <div>
-      <a href="#0.1_"><i></i></a>
-      <a href="#0.1_"><i></i></a>
-      <a href="#0.1_"><i></i></a>
     </div>
-    <h3>-Carry your memories with you</h3>
-    <h1>
-      <p> <%= note.title %> </p>
-    </h1>
-
-    <p>
-      <%= note.body %>
-    </p>
-  </div>
 
 </body>
+
 
 </html>
