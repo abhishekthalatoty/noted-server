@@ -38,7 +38,7 @@ passport.deserializeUser(User.deserializeUser());
 
 // home page redirect
 app.get('/', function (req, res) {
-    res.redirect("/notes");
+    res.render("landing");
 });
 
 
@@ -166,7 +166,7 @@ app.put('/notes/:id', function (req, res) {
     Note.findByIdAndUpdate(req.params.id, note, function (error, updatedNote) {
         if (error) { console.log(error); }
         else {
-            res.redirect('/');
+            res.redirect('/notes');
         }
     });
 });
@@ -221,5 +221,8 @@ function isLoggedIn(req, res, next) {
 
 // server listener
 app.listen(portNumber, function () {
+    User.find({}, function (err, users) {
+        console.log(users);
+    })
     console.log("the server is up and listening.");
 });

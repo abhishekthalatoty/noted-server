@@ -12,44 +12,53 @@
     <title>Note-creation</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--<link rel="stylesheet" href="style.css">-->
-    <style>
-        .text-title {
-            align-self: center;
-            padding: 1%;
-            text-align: center;
-        }
 
-        .text-area {
-            padding: 1%;
-            text-align: center;
-        }
-
-        .btnSave {
-            text-align: center;
-            margin: auto;
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/note-creation-css.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <form action="/notes" method="POST">
-        <div class="text-title">
-            <textarea row="1" cols="175" name="note[title]"> Enter title </textarea>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"
+                    style="color:whitesmoke; font-family: 'Courier New', Courier, monospace; font-weight: 600;">NOTED.</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/notes" style="color:whitesmoke;">Home</a></li>
+                <li><a href="/logout" style="padding-left: 1900%; color:whitesmoke;">Logout</a></li>
+            </ul>
         </div>
-        <div class="text-area">
-            <textarea rows="30" cols="175" title="Enter text here" name="note[body]">
-                Enter text here
-            </textarea>
-        </div>
-        <button type="submit" class="btnSave">Save</button>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-            <![endif]-->
+    </nav>
+    <div class="box">
+        <div class="box-body">
+            <form action="/notes" method="POST">
 
-    </form>
-    <script src="" async defer></script>
+                <div class="text-title">
+                    <textarea class="form-control" rows="1" cols="100" id="title" name="note[title]"
+                        placeholder="Title"></textarea>
+                </div>
+
+                <div class="text-area">
+                    <textarea class="form-control" name="note[body]" rows="25" cols="175" id="body"
+                        placeholder="Your Note"></textarea>
+                </div>
+                <div class="bar">
+                    <!--  <button class="leftbtn" id="remove-btn" onclick="goback();">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button> -->
+                    <button class="rightbtn" id="save-btn" type="submit">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button> <br>
+                </div>
+        </div>
+
+        </form>
+
+
+
 </body>
 
 </html>

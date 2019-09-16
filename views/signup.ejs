@@ -1,17 +1,80 @@
-<h3>Log In</h3>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
 
-<form action="/signup" method="POST">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SignUpPage</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/signup-css.css">
+</head>
 
-    Username : <input type="text" name="username" placeholder="username">
-    <br> <br>
+<body>
+    <!--Default Navbar Start Here-->
+    <!--<nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"
+                    style="color: rgb(51, 116, 238); font-family: 'Courier New', Courier, monospace; font-weight: 600;">NOTED.</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="note-display-html.html">Your Account</a></li>
+                <li><a href="login-html.html">Login</a></li>
+                <li><a href="settings-html.html">Settings</a></li>
+            </ul>
+        </div>
+    </nav>-->
+    <!--<nav> tag end-->
+    <div class="body-class">
+        <div class="box">
+            <div class="signup">
+                <div class="signup-title">
+                    <h2>CREATE ACCOUNT</h2>
+                </div>
+                <div class="signup-body">
+                    <form action="/signup" method="POST">
 
-    Password : <input type="password" name="password" placeholder="password">
-    <br><br>
-    ReEnter Password : <input type="password" placeholder="reenter password">
+                        <div class="form-group">
+                            <input type="text" name="username" class="form-control" id="usr"
+                                placeholder="Enter username/email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" class="form-control" id="usr"
+                                placeholder="Enter password">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="usr" placeholder="Re-Enter password">
+                        </div>
+                </div>
+                <div class="btnSignup">
+                    <button type="submit" class="btn btn-primary" id="signup">Sign Up</button>
+                </div>
+                </form>
+            </div>
+        </div>
+        <div class="welcome">
+            <h2>WELCOME TO NOTED!</h2>
+            <h3>Create an account to get started!</h3>
+            <a href="/login">Already have an account?</a>
+        </div>
+
+    </div>
 
 
-    <button>Sign Up!</button>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
 
 
+</body>
 
-</form>
+</html>

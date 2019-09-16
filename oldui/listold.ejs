@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Notes-display</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+
+    <div class="display-list">
+
+        <ul>
+            <h2>these are your notes:</h2>
+
+            <% for(var i=0; i<notes.length ; i++){ %>
+            <li>
+                <p><%= notes[i].title %></p>
+                <form action="/notes/<%= notes[i]._id%>/edit" method="GET">
+                    <button>Edit</button>
+
+                </form>
+                <form action="/notes/<%=notes[i]._id %>" method="GET">
+
+                    <button>Open</button>
+
+                </form>
+                <form action="/notes/<%=notes[i]._id %>?_method=DELETE" method="POST">
+                    <button>Delete</button>
+                </form>
+            </li>
+            <hr>
+
+
+            <% } %>
+
+
+            <form action="/notes/new" method="GET">
+                <button>Add a New Note</button>
+            </form>
+
+        </ul>
+        <br><br>
+        <a href="/logout"> <button>Log Out!</button></a>
+    </div>
+
+</body>
+
+</html>
+
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Notes-display</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/note-display-css.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#"
+                    style="color: rgb(51, 116, 238); font-family: 'Courier New', Courier, monospace; font-weight: 600;">NOTED.</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="note-display-html.html">Your Account</a></li>
+                <li><a href="login-html.html">Login</a></li>
+                <li><a href="settings-html.html">Settings</a></li>
+            </ul>
+        </div>
+    </nav>
+    <header>
+        <p>Your Notes</p>
+        <div class="sort">
+            <p>Sort by </p>
+            <select name="sort">
+                <option value="By Date">By Date</option>
+                <option value="By Alphabet">By Alphabet</option>
+            </select>
+        </div>
+    </header>
+
+    <div class="search-create">
+
+        <button class="create-btn" id="create-btn">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </div>
+
+    <div class="display-list">
+        <ul>
+            <%  //for(var i=0; i<notes.length ; i++){ %>
+            <li>
+                <div class="note">
+                    <div class="note-title">
+                        <h1><%= //notes[i].title %></h1>
+
+                    </div>
+                    <div class="toright">
+
+                        <form action="/notes/<%=//notes[i]._id %>" method="GET">
+
+                            <button id="open-btn">Open</button>
+
+                        </form>
+
+                        <h2>7:15 PM</h2>
+                    </div>
+                </div>
+
+            </li>
+
+            <%// } %>
+
+        </ul>
+    </div>
+    <script src="note-display-js.js" async defer></script>
+    <script src="https://kit.fontawesome.com/yourcode.js"></script>
+</body>
+
+</html> -->
